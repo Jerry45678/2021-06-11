@@ -69,7 +69,6 @@ def setBtnText(num):
             print("Player2 win")
 
 count = 0
-active = "active"
 
 window = Tk()
 window.title("Button test")

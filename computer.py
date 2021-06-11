@@ -1,13 +1,40 @@
 from tkinter import *
 
+opset = 0
+v3 = 0
+
 def ChangeText(num):
-    if lab["text"] != '0':
+    if int(lab["text"]) != 0:
         lab["text"] = lab["text"] + num
     else:
         lab["text"] = num
 
 def Del():
     lab["text"] = 0
+
+def opSet(onValue):
+    global opset
+    global v1
+    v1 = int(lab["text"])
+    btnequal.config(state="active")
+    opset = int(onValue)
+    lab["text"] = 0
+
+def equal():
+    global v1
+    global v3
+    global opset
+    v2 = int(lab["text"])
+    if opset == 1:
+        v3 = v1 + v2
+    elif opset == 2:
+        v3 = v1 - v2
+    elif opset == 3:
+        v3 = v1 * v2
+    elif opset == 4:
+        v3 = v1 // v2
+    lab["text"] = v3
+    btnequal.config(state="disabled")
 
 window = Tk()
 window.title("Button test")
@@ -48,18 +75,18 @@ btn3.grid(row=3, column=2, sticky=NSEW)
 
 btn0 = Button(window, text="0",font=("Helvetica", 30, "bold"), command=lambda:ChangeText('0'))
 btn0.grid(row=4, column=0, sticky=NSEW)
-btnequal = Button(window, text="=",font=("Helvetica", 30, "bold"))
+btnequal = Button(window, text="=",font=("Helvetica", 30, "bold"),state="disabled", command=equal)
 btnequal.grid(row=4, column=2, sticky=NSEW)
 btnDel = Button(window, text="C",font=("Helvetica", 30, "bold"), command=Del)
 btnDel.grid(row=4, column=1, sticky=NSEW)
 
-btnadd = Button(window, text="+",font=("Helvetica", 30, "bold"), command=lambda:ChangeText('+'))
+btnadd = Button(window, text="+",font=("Helvetica", 30, "bold"), command=lambda:opSet('1'))
 btnadd.grid(row=1, column=3, sticky=NSEW)
-btnsub = Button(window, text="-",font=("Helvetica", 30, "bold"), command=lambda:ChangeText('-'))
+btnsub = Button(window, text="-",font=("Helvetica", 30, "bold"), command=lambda:opSet('2'))
 btnsub.grid(row=2, column=3, sticky=NSEW)
-btnmul = Button(window, text="x",font=("Helvetica", 30, "bold"), command=lambda:ChangeText('x'))
+btnmul = Button(window, text="x",font=("Helvetica", 30, "bold"), command=lambda:opSet('3'))
 btnmul.grid(row=3, column=3, sticky=NSEW)
-btndiv = Button(window, text="÷",font=("Helvetica", 30, "bold"), command=lambda:ChangeText('÷'))
+btndiv = Button(window, text="÷",font=("Helvetica", 30, "bold"), command=lambda:opSet('4'))
 btndiv.grid(row=4, column=3, sticky=NSEW)
 
 window.mainloop()
